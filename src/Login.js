@@ -9,6 +9,7 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.signup = this.signup.bind(this);
     this.signInGithub = this.signInGithub.bind(this);
+    this.passwordReset = this.passwordReset.bind(this);
     this.state = {
       email: "",
       password: "",
@@ -72,6 +73,20 @@ class Login extends Component {
       });
   }
 
+  passwordReset(e) {
+    e.preventDefault();
+    let email = this.state.email;
+    fire
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then((u) => {
+        alert("A password reset link has been sent to the mail-id entered!");
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
   render() {
     return (
       <div className="col-md-6">
@@ -93,7 +108,7 @@ class Login extends Component {
             </small>
           </div>
           <div className="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            <label htmlFor="exampleInputPassword1">Password</label>
             <input
               value={this.state.password}
               onChange={this.handleChange}
@@ -104,7 +119,11 @@ class Login extends Component {
               placeholder="Password"
             />
           </div>
-          <button type="submit" onClick={this.login} className="btn btn-primary">
+          <button
+            type="submit"
+            onClick={this.login}
+            className="btn btn-primary"
+          >
             Login
           </button>
           <button
@@ -127,6 +146,13 @@ class Login extends Component {
             className="btn btn-info"
           >
             Twitter
+          </button>
+          <button
+            onClick={this.passwordReset}
+            style={{ marginLeft: "25px" }}
+            className="btn btn-dark"
+          >
+            Reset Password
           </button>
         </form>
       </div>
