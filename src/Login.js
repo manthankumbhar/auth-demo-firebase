@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import fire from "./config/Fire";
+import firebase from "firebase";
 
 class Login extends Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class Login extends Component {
     this.login = this.login.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.signup = this.signup.bind(this);
+    this.signInGithub = this.signInGithub.bind(this);
     this.state = {
       email: "",
       password: "",
@@ -41,6 +43,35 @@ class Login extends Component {
         alert(error);
       });
   }
+
+  signInGithub(e) {
+    e.preventDefault();
+    fire
+      .auth()
+      .signInWithPopup(new firebase.auth.GithubAuthProvider())
+      .then((u) => {})
+      .then((u) => {
+        console.log(u);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
+  signInTwitter(e) {
+    e.preventDefault();
+    fire
+      .auth()
+      .signInWithPopup(new firebase.auth.TwitterAuthProvider())
+      .then((u) => {})
+      .then((u) => {
+        console.log(u);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
   render() {
     return (
       <div className="col-md-6">
@@ -61,7 +92,7 @@ class Login extends Component {
               We'll never share your email with anyone else.
             </small>
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="exampleInputPassword1">Password</label>
             <input
               value={this.state.password}
@@ -82,6 +113,20 @@ class Login extends Component {
             className="btn btn-success"
           >
             Signup
+          </button>
+          <button
+            onClick={this.signInGithub}
+            style={{ marginLeft: "25px" }}
+            className="btn btn-secondary"
+          >
+            Github
+          </button>
+          <button
+            onClick={this.signInTwitter}
+            style={{ marginLeft: "25px" }}
+            className="btn btn-info"
+          >
+            Twitter
           </button>
         </form>
       </div>
