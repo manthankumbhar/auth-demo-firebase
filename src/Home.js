@@ -14,8 +14,9 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Welcome to Home</h1>
-        <button onClick={this.logout}>Logout</button>
+        <h1 style={{fontStyle:"italic"}}>You are logged in succesfully!</h1>
+        <h2 style={{textDecoration:"underline wavy blue"}}>Home</h2>      
+        <button onClick={this.logout} className="btn btn-warning">Logout</button>
       </div>
     );
   }
