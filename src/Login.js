@@ -91,7 +91,7 @@ class Login extends Component {
     return (
       <div className="col-md-6">
         <form>
-          <div style={{alignItems:"center"}}>
+          <div className="form-group">
             <label htmlFor="exampleInputEmail1">Email address</label>
             <input
               value={this.state.email}
@@ -147,9 +147,15 @@ class Login extends Component {
             className="btn btn-info"
           >
             Twitter
-          </button>          
+          </button>
           <br />
-          <a className="a" onClick={this.passwordReset} style={{textDecoration:"underline"}}>Forgot Password?</a>
+          <button
+            onClick={this.passwordReset}
+            style={{ margin: "10px" }}
+            className="btn btn-dark"
+          >
+            Reset Password
+          </button>
         </form>
       </div>
     );
