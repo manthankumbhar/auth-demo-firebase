@@ -91,7 +91,7 @@ class Login extends Component {
     return (
       <div className="col-md-6">
         <form>
-          <div className="form-group">
+          <div style={{alignItems:"center"}}>
             <label htmlFor="exampleInputEmail1">Email address</label>
             <input
               value={this.state.email}
@@ -122,38 +122,34 @@ class Login extends Component {
           <button
             type="submit"
             onClick={this.login}
+            style={{ margin: "10px" }}
             className="btn btn-primary"
           >
             Login
           </button>
           <button
             onClick={this.signup}
-            style={{ marginLeft: "25px" }}
+            style={{ margin: "10px" }}
             className="btn btn-success"
           >
             Signup
           </button>
           <button
             onClick={this.signInGithub}
-            style={{ marginLeft: "25px" }}
+            style={{ margin: "10px" }}
             className="btn btn-secondary"
           >
             Github
           </button>
           <button
             onClick={this.signInTwitter}
-            style={{ marginLeft: "25px" }}
+            style={{ margin: "10px" }}
             className="btn btn-info"
           >
             Twitter
-          </button>
-          <button
-            onClick={this.passwordReset}
-            style={{ marginLeft: "25px" }}
-            className="btn btn-dark"
-          >
-            Reset Password
-          </button>
+          </button>          
+          <br />
+          <a className="a" onClick={this.passwordReset} style={{textDecoration:"underline"}}>Forgot Password?</a>
         </form>
       </div>
     );
