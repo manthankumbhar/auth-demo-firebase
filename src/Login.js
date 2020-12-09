@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import fire from "./config/Fire";
 import firebase from "firebase";
+import ui from "./config/Fire";
 
 class Login extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Login extends Component {
       password: "",
     };
   }
-
+  
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -64,6 +65,19 @@ class Login extends Component {
     fire
       .auth()
       .signInWithPopup(new firebase.auth.TwitterAuthProvider())
+      .then((u) => {})
+      .then((u) => {
+        console.log(u);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+  signInGoogle(e) {
+    e.preventDefault();
+    fire
+      .auth()
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((u) => {})
       .then((u) => {
         console.log(u);
@@ -148,13 +162,20 @@ class Login extends Component {
           >
             Twitter
           </button>
+          <button
+            onClick={this.signInGoogle}
+            style={{ margin: "10px" }}
+            className="btn btn-dark"
+          >
+            Google
+          </button>
           <br />
           <button
             onClick={this.passwordReset}
             style={{ margin: "10px" }}
-            className="btn btn-dark"
+            className="btn btn-light"
           >
-            Reset Password
+            Forgot Password?
           </button>
         </form>
       </div>
