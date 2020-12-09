@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import fire from "./config/Fire";
 import firebase from "firebase";
-import ui from "./config/Fire";
 
 class Login extends Component {
   constructor(props) {
