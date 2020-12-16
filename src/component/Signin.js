@@ -1,21 +1,26 @@
 import React, { Component } from "react";
-import fire from "./config/Fire";
+import fire from "../hoc/Fire";
 import firebase from "firebase";
+import { Link, Redirect } from "react-router-dom";
+import MainAuth from "../hoc/Auth";
 
-class Login extends Component {
+class Signin extends Component {
   constructor(props) {
     super(props);
     this.login = this.login.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.signup = this.signup.bind(this);
     this.signInGithub = this.signInGithub.bind(this);
+    this.signInTwitter = this.signInTwitter.bind(this);
+    this.signInGoogle = this.signInGoogle.bind(this);
     this.passwordReset = this.passwordReset.bind(this);
+    this.authListener = this.authListener.bind(this);
     this.state = {
       email: "",
       password: "",
+      user: null,
     };
   }
-  
+
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -25,20 +30,8 @@ class Login extends Component {
     fire
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then((u) => {})
-      .catch((error) => {
-        alert(error);
-      });
-  }
-
-  signup(e) {
-    e.preventDefault();
-    fire
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then((u) => {})
       .then((u) => {
-        console.log(u);
+        return (MainAuth.isAuth = true);
       })
       .catch((error) => {
         alert(error);
@@ -54,6 +47,9 @@ class Login extends Component {
       .then((u) => {
         console.log(u);
       })
+      .then((u) => {
+        return (MainAuth.isAuth = true);
+      })
       .catch((error) => {
         alert(error);
       });
@@ -68,6 +64,9 @@ class Login extends Component {
       .then((u) => {
         console.log(u);
       })
+      .then((u) => {
+        return (MainAuth.isAuth = true);
+      })
       .catch((error) => {
         alert(error);
       });
@@ -80,6 +79,9 @@ class Login extends Component {
       .then((u) => {})
       .then((u) => {
         console.log(u);
+      })
+      .then((u) => {
+        return (MainAuth.isAuth = true);
       })
       .catch((error) => {
         alert(error);
@@ -99,12 +101,29 @@ class Login extends Component {
         alert(error);
       });
   }
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+        localStorage.setItem("user", user.uid);
+      } else {
+        this.setState({ user: null });
+        localStorage.removeItem("user");
+      }
+    });
+  }
 
   render() {
     return (
-      <div className="col-md-6">
+      <div className="col-lg-4 offset-lg-4 main">
         <form>
           <div className="form-group">
+            <h1>Sign In</h1>
             <label htmlFor="exampleInputEmail1">Email address</label>
             <input
               value={this.state.email}
@@ -113,7 +132,6 @@ class Login extends Component {
               name="email"
               className="form-control"
               id="exampleInputEmail1"
-              aria-describedby="emailHelp"
               placeholder="Enter email"
             />
             <small id="emailHelp" className="form-text text-muted">
@@ -133,19 +151,11 @@ class Login extends Component {
             />
           </div>
           <button
-            type="submit"
             onClick={this.login}
             style={{ margin: "10px" }}
             className="btn btn-primary"
           >
             Login
-          </button>
-          <button
-            onClick={this.signup}
-            style={{ margin: "10px" }}
-            className="btn btn-success"
-          >
-            Signup
           </button>
           <button
             onClick={this.signInGithub}
@@ -174,11 +184,17 @@ class Login extends Component {
             style={{ margin: "10px" }}
             className="btn btn-light"
           >
-            Forgot Password?
+            Forgot Password ?
           </button>
+          <br />
+          <Link to="/signup">New User? Signup here.</Link>
+          <br />
+          <Link to="/">Main Page</Link>
         </form>
+        {(MainAuth.isAuth = true)}
+        {this.state.user ? <Redirect to="/home" /> : null}
       </div>
     );
   }
 }
-export default Login;
+export default Signin;
