@@ -134,7 +134,7 @@ class Signup extends Component {
             style={{ margin: "10px" }}
             className="btn-up col-11 rounded"
           >
-            Signup
+            Continue with email
           </button>
         </form>
         {this.state.user ? <Redirect to="/home" /> : null}
