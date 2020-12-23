@@ -139,7 +139,7 @@ class Signin extends Component {
             />
           </div>
           <button onClick={this.login} className="col-11 btn-in rounded">
-            Login
+            Continue with email
           </button>
           <br />
           <br />
