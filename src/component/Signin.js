@@ -1,24 +1,38 @@
 import React, { Component } from "react";
 import fire from "../hoc/Fire";
 import firebase from "firebase";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import MainAuth from "../hoc/Auth";
+import "./Signin.css";
 
 class Signin extends Component {
   constructor(props) {
     super(props);
     this.login = this.login.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.signInGithub = this.signInGithub.bind(this);
-    this.signInTwitter = this.signInTwitter.bind(this);
     this.signInGoogle = this.signInGoogle.bind(this);
     this.passwordReset = this.passwordReset.bind(this);
-    this.authListener = this.authListener.bind(this);
     this.state = {
       email: "",
       password: "",
       user: null,
     };
+  }
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+        localStorage.setItem("user", user.uid);
+      } else {
+        this.setState({ user: null });
+        localStorage.removeItem("user");
+      }
+    });
   }
 
   handleChange(e) {
@@ -38,39 +52,6 @@ class Signin extends Component {
       });
   }
 
-  signInGithub(e) {
-    e.preventDefault();
-    fire
-      .auth()
-      .signInWithPopup(new firebase.auth.GithubAuthProvider())
-      .then((u) => {})
-      .then((u) => {
-        console.log(u);
-      })
-      .then((u) => {
-        return (MainAuth.isAuth = true);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
-
-  signInTwitter(e) {
-    e.preventDefault();
-    fire
-      .auth()
-      .signInWithPopup(new firebase.auth.TwitterAuthProvider())
-      .then((u) => {})
-      .then((u) => {
-        console.log(u);
-      })
-      .then((u) => {
-        return (MainAuth.isAuth = true);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
   signInGoogle(e) {
     e.preventDefault();
     fire
@@ -101,30 +82,36 @@ class Signin extends Component {
         alert(error);
       });
   }
-  componentDidMount() {
-    this.authListener();
-  }
-
-  authListener() {
-    fire.auth().onAuthStateChanged((user) => {
-      console.log(user);
-      if (user) {
-        this.setState({ user });
-        localStorage.setItem("user", user.uid);
-      } else {
-        this.setState({ user: null });
-        localStorage.removeItem("user");
-      }
-    });
-  }
 
   render() {
     return (
-      <div className="col-lg-4 offset-lg-4 main">
+      <div className="col-lg-3 col-md-4 col-xs-8 col-sm-8 main">
         <form>
-          <div className="form-group">
-            <h1>Sign In</h1>
-            <label htmlFor="exampleInputEmail1">Email address</label>
+          <div className="col-12">
+            <h1
+              style={{
+                fontSize: "50px",
+                fontFamily:
+                  "inter, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica",
+                fontWeight: "800",
+                textAlign: "center",
+              }}
+            >
+              Sign in
+            </h1>
+            <button
+              className="col-12 btn-google rounded"
+              onClick={this.signInGoogle}
+              style={{ fontSize: "18px" }}
+            >
+              Continue with Google
+            </button>
+          </div>
+          <br />
+          <div className="form-group col-12 ">
+            <label htmlFor="exampleInputEmail1" style={{ fontSize: "12px" }}>
+              Email address
+            </label>
             <input
               value={this.state.email}
               onChange={this.handleChange}
@@ -132,14 +119,14 @@ class Signin extends Component {
               name="email"
               className="form-control"
               id="exampleInputEmail1"
-              placeholder="Enter email"
+              placeholder="Enter your email address..."
+              style={{ height: "32px" }}
             />
-            <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone else.
-            </small>
           </div>
-          <div className="form-group">
-            <label htmlFor="exampleInputPassword1">Password</label>
+          <div className="form-group col-12">
+            <label htmlFor="exampleInputPassword1" style={{ fontSize: "12px" }}>
+              Password
+            </label>
             <input
               value={this.state.password}
               onChange={this.handleChange}
@@ -148,50 +135,28 @@ class Signin extends Component {
               className="form-control"
               id="exampleInputPassword1"
               placeholder="Password"
+              style={{ height: "32px" }}
             />
           </div>
-          <button
-            onClick={this.login}
-            style={{ margin: "10px" }}
-            className="btn btn-primary"
-          >
+          <button onClick={this.login} className="col-11 btn-in rounded">
             Login
           </button>
-          <button
-            onClick={this.signInGithub}
-            style={{ margin: "10px" }}
-            className="btn btn-secondary"
-          >
-            Github
-          </button>
-          <button
-            onClick={this.signInTwitter}
-            style={{ margin: "10px" }}
-            className="btn btn-info"
-          >
-            Twitter
-          </button>
-          <button
-            onClick={this.signInGoogle}
-            style={{ margin: "10px" }}
-            className="btn btn-dark"
-          >
-            Google
-          </button>
           <br />
-          <button
+          <br />
+          <p
             onClick={this.passwordReset}
-            style={{ margin: "10px" }}
-            className="btn btn-light"
+            className="p"
+            style={{
+              textAlign: "center",
+              fontSize: "15px",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
           >
-            Forgot Password ?
-          </button>
+            Forgot Password?
+          </p>
           <br />
-          <Link to="/signup">New User? Signup here.</Link>
-          <br />
-          <Link to="/">Main Page</Link>
         </form>
-        {(MainAuth.isAuth = true)}
         {this.state.user ? <Redirect to="/home" /> : null}
       </div>
     );

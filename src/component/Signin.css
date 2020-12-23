@@ -1,0 +1,29 @@
+.main {
+  background-color: white;
+  margin: 150px auto;
+}
+.main_in {
+  margin: 20px 20px;
+  background-color: grey;
+  color: white;
+}
+.btn-google {
+  background-color: #ff4d4d;
+  color: white;
+  font-style: bold;
+  font-size: 20px;
+}
+.btn-google:hover {
+  background-color: #ff3333;
+}
+.btn-in {
+  background-color: #fdf5f2;
+  border: 0.5px solid #ccc;
+  height: 34px;
+}
+.btn-in:hover {
+  background-color: #fcece9;
+}
+.p:hover {
+  color: grey;
+}
