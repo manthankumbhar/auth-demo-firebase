@@ -3,6 +3,16 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-.a:hover{
+.a:hover {
   color: green;
+}
+.main {
+  background-color: #ccc;
+  margin: 150px auto;
+}
+.main_in,
+.main_up {
+  margin: 20px 20px;
+  background-color:grey;
+  color: white;
 }

@@ -1,37 +1,26 @@
 import React, { Component } from "react";
 import "./App.css";
-import fire from "./config/Fire";
-import Home from "./Home";
-import Login from "./Login";
+import { Route, Switch } from "react-router-dom";
+import Signup from "./component/Signup";
+import Main from "./component/Main";
+import Signin from "./component/Signin";
+import Home from "./component/Home";
+import PrivateRoute from "./hoc/PrivateRoute";
+import Error from "./hoc/Error";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      user: null,
-    };
-    this.authListener = this.authListener.bind(this);
-  }
-
-  componentDidMount() {
-    this.authListener();
-  }
-
-  authListener() {
-    fire.auth().onAuthStateChanged((user) => {
-      console.log(user);
-      if (user) {
-        this.setState({ user });
-        localStorage.setItem("user", user.uid);
-      } else {
-        this.setState({ user: null });
-        localStorage.removeItem("user");
-      }
-    });
-  }
-
   render() {
-    return <div className="App">{this.state.user ? <Home /> : <Login />}</div>;
+    return (
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/signin" component={Signin} />
+          <Route path="/signup" component={Signup} />
+          <PrivateRoute path="/home" component={Home} />
+          <Route path="*" component={Error} />
+        </Switch>
+      </div>
+    );
   }
 }
 
