@@ -57,10 +57,6 @@ class Signin extends Component {
     fire
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((u) => {})
-      .then((u) => {
-        console.log(u);
-      })
       .then((u) => {
         return (MainAuth.isAuth = true);
       })

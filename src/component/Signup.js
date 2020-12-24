@@ -60,12 +60,12 @@ class Signup extends Component {
     fire
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((u) => {})
       .then((u) => {
-        console.log(u);
+        MainAuth.isAuth = true;
       })
-      .then((u) => {
-        return (MainAuth.isAuth = true);
+      .then(() => {
+        let userTime = fire.auth().currentUser.metadata.creationTime;
+        alert(`You are already a user from ${userTime}`);
       })
       .catch((error) => {
         alert(error);
