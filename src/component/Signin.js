@@ -72,15 +72,13 @@ class Signin extends Component {
   passwordReset(e) {
     e.preventDefault();
     let email = this.state.email;
-    fire
-      .auth()
-      .sendPasswordResetEmail(email)
-      .then((u) => {
-        alert("A password reset link has been sent to the mail-id entered!");
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    let emailCheck = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (email.match(emailCheck)) {
+      alert("A password reset link has been sent to the mail-id entered");
+    } else {
+      alert("Email is badly formatted");
+    }
+    fire.auth().sendPasswordResetEmail(email);
   }
 
   render() {
