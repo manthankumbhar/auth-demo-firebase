@@ -72,7 +72,8 @@ class Signin extends Component {
   passwordReset(e) {
     e.preventDefault();
     let email = this.state.email;
-    if (email.length >= 8) {
+    let emailCheck = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (email.match(emailCheck)) {
       alert("A password reset link has been sent to the mail-id entered");
     } else {
       alert("Email is badly formatted");
