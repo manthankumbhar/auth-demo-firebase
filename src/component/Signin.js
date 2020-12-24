@@ -100,13 +100,14 @@ class Signin extends Component {
             <button
               className="col-12 btn-google rounded"
               onClick={this.signInGoogle}
+              type="button"
               style={{ fontSize: "18px" }}
             >
               Continue with Google
             </button>
           </div>
           <br />
-          <div className="form-group col-12 ">
+          <div className="form-group col-12">
             <label htmlFor="exampleInputEmail1" style={{ fontSize: "12px" }}>
               Email address
             </label>
@@ -136,7 +137,10 @@ class Signin extends Component {
               style={{ height: "32px" }}
             />
           </div>
-          <button onClick={this.login} className="col-11 btn-in rounded">
+          <button
+            onClick={this.login}
+            className="col-11 btn-in rounded"
+          >
             Continue with email
           </button>
           <br />

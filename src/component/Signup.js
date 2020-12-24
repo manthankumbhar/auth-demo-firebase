@@ -92,6 +92,7 @@ class Signup extends Component {
             <button
               className="col-12 btn-google rounded"
               onClick={this.signInGoogle}
+              type="button"
               style={{ fontSize: "18px" }}
             >
               Continue with Google
