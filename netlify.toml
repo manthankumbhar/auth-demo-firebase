@@ -2,12 +2,4 @@
   from = "/*"
   to = "/Error.js"
   status = 404
-  
-module.exports = {
-  "/error": { page: "/Error" }
-};
 
-[[redirects]]
- from = "/*"
- to = "/Error"
- status = 404
