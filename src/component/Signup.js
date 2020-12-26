@@ -57,15 +57,12 @@ class Signup extends Component {
 
   signInGoogle(e) {
     e.preventDefault();
-    fire
-      .auth()
+    let authObject = fire.auth();
+    authObject
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((u) => {})
       .then((u) => {
-        console.log(u);
-      })
-      .then((u) => {
-        return (MainAuth.isAuth = true);
+        MainAuth.isAuth = true;
+        console.log(u.user.metadata.creationTime);
       })
       .catch((error) => {
         alert(error);
