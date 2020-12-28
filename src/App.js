@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
-import Signup from "./component/Signup";
-import Main from "./component/Main";
-import Signin from "./component/Signin";
-import Home from "./component/Home";
+import Signup from "./components/Signup";
+import Main from "./components/Main";
+import Signin from "./components/Signin";
+import Home from "./components/Home";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Error from "./hoc/Error";
 

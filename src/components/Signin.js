@@ -31,6 +31,8 @@ class Signin extends Component {
       } else {
         this.setState({ user: null });
         localStorage.removeItem("user");
+        localStorage.removeItem("signupConfig");
+        localStorage.removeItem("creationTime");
       }
     });
   }
@@ -57,10 +59,6 @@ class Signin extends Component {
     fire
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((u) => {})
-      .then((u) => {
-        console.log(u);
-      })
       .then((u) => {
         return (MainAuth.isAuth = true);
       })

@@ -31,6 +31,8 @@ class Signup extends Component {
       } else {
         this.setState({ user: null });
         localStorage.removeItem("user");
+        localStorage.removeItem("signupConfig");
+        localStorage.removeItem("creationTime");
       }
     });
   }
@@ -63,6 +65,8 @@ class Signup extends Component {
       .then((u) => {
         MainAuth.isAuth = true;
         console.log(u.user.metadata.creationTime);
+        localStorage.setItem("signupConfig", null);
+        localStorage.setItem("creationTime", u.user.metadata.creationTime);
       })
       .catch((error) => {
         alert(error);
