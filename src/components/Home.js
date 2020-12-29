@@ -7,7 +7,7 @@ class Home extends Component {
     super(props);
     this.logout = this.logout.bind(this);
     this.state = {
-      userSignUpCheck: false,
+      userSignUpinLastOneHour: false,
     };
   }
 
@@ -18,15 +18,18 @@ class Home extends Component {
   componentDidMount() {
     var currentDate = new Date();
     var oneHour = 60 * 60 * 1000;
-    var creationTime = Date.parse(localStorage.getItem("userSignUpTime"));
-    if (sessionStorage.signUpWarning && creationTime + oneHour < currentDate) {
-      this.setState({ userSignUpCheck: true });
+    var userSignUpTime = Date.parse(sessionStorage.getItem("userSignUpTime"));
+    if (
+      sessionStorage.showSignUpWarning &&
+      userSignUpTime + oneHour < currentDate
+    ) {
+      this.setState({ userSignUpinLastOneHour: true });
     }
   }
 
   render() {
     let modal;
-    if (this.state.userSignUpCheck) {
+    if (this.state.userSignUpinLastOneHour) {
       modal = <SignUpWarningModal />;
     }
     return (

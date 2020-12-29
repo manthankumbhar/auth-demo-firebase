@@ -4,7 +4,7 @@ import { ModalBody } from "react-bootstrap";
 import ModalHeader from "react-bootstrap/esm/ModalHeader";
 
 function SignUpWarningModal() {
-  var time = localStorage.getItem("userSignUpTime");
+  var time = sessionStorage.getItem("userSignUpTime");
   const [show, setShow] = useState(true, false);
   const handleClose = () => setShow(false);
   return (
