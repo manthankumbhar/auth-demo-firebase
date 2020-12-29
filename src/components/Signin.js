@@ -3,19 +3,19 @@ import fire from "../hoc/Fire";
 import firebase from "firebase";
 import { Redirect } from "react-router-dom";
 import MainAuth from "../hoc/Auth";
-import "./Signup.css";
+import "./Signin.css";
 
-class Signup extends Component {
-  constructor() {
-    super();
+class Signin extends Component {
+  constructor(props) {
+    super(props);
+    this.login = this.login.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.signup = this.signup.bind(this);
     this.signInGoogle = this.signInGoogle.bind(this);
-    this.authListener = this.authListener.bind(this);
+    this.passwordReset = this.passwordReset.bind(this);
     this.state = {
-      user: null,
       email: "",
       password: "",
+      user: null,
     };
   }
   componentDidMount() {
@@ -38,15 +38,12 @@ class Signup extends Component {
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-  signup(e) {
+
+  login(e) {
     e.preventDefault();
     fire
       .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then((u) => {})
-      .then((u) => {
-        console.log(u);
-      })
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((u) => {
         return (MainAuth.isAuth = true);
       })
@@ -60,10 +57,6 @@ class Signup extends Component {
     fire
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((u) => {})
-      .then((u) => {
-        console.log(u);
-      })
       .then((u) => {
         return (MainAuth.isAuth = true);
       })
@@ -72,9 +65,21 @@ class Signup extends Component {
       });
   }
 
+  passwordReset(e) {
+    e.preventDefault();
+    let email = this.state.email;
+    let emailCheck = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (email.match(emailCheck)) {
+      alert("A password reset link has been sent to the mail-id entered");
+    } else {
+      alert("Email is badly formatted");
+    }
+    fire.auth().sendPasswordResetEmail(email);
+  }
+
   render() {
     return (
-      <div className="col-md-3 col-xs-12 col-sm-12 main">
+      <div className="col-lg-3 col-md-4 col-xs-8 col-sm-8 main">
         <form>
           <div className="col-12">
             <h1
@@ -86,9 +91,8 @@ class Signup extends Component {
                 textAlign: "center",
               }}
             >
-              Sign up
+              Sign in
             </h1>
-            <br />
             <button
               className="col-12 btn-google rounded"
               onClick={this.signInGoogle}
@@ -110,7 +114,6 @@ class Signup extends Component {
               name="email"
               className="form-control"
               id="exampleInputEmail1"
-              aria-describedby="emailHelp"
               placeholder="Enter your email address..."
               style={{ height: "32px" }}
             />
@@ -131,17 +134,30 @@ class Signup extends Component {
             />
           </div>
           <button
-            onClick={this.signup}
-            style={{ margin: "10px" }}
-            className="btn-up col-11 rounded"
+            onClick={this.login}
+            className="col-11 btn-in rounded"
           >
             Continue with email
           </button>
+          <br />
+          <br />
+          <p
+            onClick={this.passwordReset}
+            className="p"
+            style={{
+              textAlign: "center",
+              fontSize: "15px",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            Forgot Password?
+          </p>
+          <br />
         </form>
         {this.state.user ? <Redirect to="/home" /> : null}
       </div>
     );
   }
 }
-
-export default Signup;
+export default Signin;

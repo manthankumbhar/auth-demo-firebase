@@ -1,17 +1,37 @@
 import React, { Component } from "react";
 import fire from "../hoc/Fire";
+import SignUpWarningModal from "../UI/SignUpWarningModal";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
+    this.state = {
+      userSignUpinLastOneHour: false,
+    };
   }
 
   logout() {
     fire.auth().signOut();
   }
 
+  componentDidMount() {
+    var currentDate = new Date();
+    var oneHour = 60 * 60 * 1000;
+    var userSignUpTime = Date.parse(sessionStorage.getItem("userSignUpTime"));
+    if (
+      sessionStorage.showSignUpWarning &&
+      userSignUpTime + oneHour < currentDate
+    ) {
+      this.setState({ userSignUpinLastOneHour: true });
+    }
+  }
+
   render() {
+    let modal;
+    if (this.state.userSignUpinLastOneHour) {
+      modal = <SignUpWarningModal />;
+    }
     return (
       <div>
         <h1 style={{ fontStyle: "italic" }}>You are logged in successfully!</h1>
@@ -21,6 +41,7 @@ class Home extends Component {
             Logout
           </button>
         </a>
+        {modal}
       </div>
     );
   }

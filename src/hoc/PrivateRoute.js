@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router";
-import Home from "../component/Home";
+import Home from "../components/Home";
 import MainAuth from "./Auth";
 import Error from "./Error";
 
@@ -8,10 +8,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      MainAuth.isAuth === true ? (
+      MainAuth.isAuth ? (
         <Component {...props} />
-      ) : localStorage.getItem("user") ? (
-        <Home />
+      ) : localStorage.user ? (
+        localStorage.getItem("user") && <Home />
       ) : (
         <Error />
       )
