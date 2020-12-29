@@ -31,7 +31,6 @@ class Signin extends Component {
       } else {
         this.setState({ user: null });
         localStorage.removeItem("user");
-        localStorage.removeItem("signUpWarning");
         localStorage.removeItem("userSignUpTime");
       }
     });

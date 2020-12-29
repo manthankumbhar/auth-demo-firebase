@@ -3,13 +3,10 @@ import React, { useState } from "react";
 import { ModalBody } from "react-bootstrap";
 import ModalHeader from "react-bootstrap/esm/ModalHeader";
 
-function Modaljs() {
+function SignUpWarningModal() {
   var time = localStorage.getItem("userSignUpTime");
-
   const [show, setShow] = useState(true, false);
-
   const handleClose = () => setShow(false);
-
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
@@ -22,4 +19,4 @@ function Modaljs() {
   );
 }
 
-export default Modaljs;
+export default SignUpWarningModal;

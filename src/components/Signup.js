@@ -16,6 +16,7 @@ class Signup extends Component {
       user: null,
       email: "",
       password: "",
+      userSignUpCheck: false,
     };
   }
   componentDidMount() {
@@ -31,7 +32,6 @@ class Signup extends Component {
       } else {
         this.setState({ user: null });
         localStorage.removeItem("user");
-        localStorage.removeItem("signUpWarning");
         localStorage.removeItem("userSignUpTime");
       }
     });
@@ -40,15 +40,12 @@ class Signup extends Component {
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+
   signup(e) {
     e.preventDefault();
     fire
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then((u) => {})
-      .then((u) => {
-        console.log(u);
-      })
       .then((u) => {
         return (MainAuth.isAuth = true);
       })
@@ -65,7 +62,7 @@ class Signup extends Component {
       .then((u) => {
         MainAuth.isAuth = true;
         localStorage.setItem("userSignUpTime", u.user.metadata.creationTime);
-        localStorage.setItem("signUpWarning", null);
+        sessionStorage.setItem("signUpWarning", null);
       })
       .catch((error) => {
         alert(error);
