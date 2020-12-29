@@ -4,7 +4,7 @@ import { ModalBody } from "react-bootstrap";
 import ModalHeader from "react-bootstrap/esm/ModalHeader";
 
 function Modaljs() {
-  var signupConfig = localStorage.getItem("creationTime");
+  var time = localStorage.getItem("userSignUpTime");
 
   const [show, setShow] = useState(true, false);
 
@@ -15,7 +15,7 @@ function Modaljs() {
       <Modal show={show} onHide={handleClose}>
         <ModalHeader closeButton>Reminder!</ModalHeader>
         <ModalBody>
-          <p>You are already a user from {signupConfig}</p>
+          <p>You are already a user from {time}</p>
         </ModalBody>
       </Modal>
     </div>

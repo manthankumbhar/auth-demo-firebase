@@ -31,8 +31,8 @@ class Signup extends Component {
       } else {
         this.setState({ user: null });
         localStorage.removeItem("user");
-        localStorage.removeItem("signupConfig");
-        localStorage.removeItem("creationTime");
+        localStorage.removeItem("signUpWarning");
+        localStorage.removeItem("userSignUpTime");
       }
     });
   }
@@ -64,9 +64,8 @@ class Signup extends Component {
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((u) => {
         MainAuth.isAuth = true;
-        console.log(u.user.metadata.creationTime);
-        localStorage.setItem("signupConfig", null);
-        localStorage.setItem("creationTime", u.user.metadata.creationTime);
+        localStorage.setItem("userSignUpTime", u.user.metadata.creationTime);
+        localStorage.setItem("signUpWarning", null);
       })
       .catch((error) => {
         alert(error);

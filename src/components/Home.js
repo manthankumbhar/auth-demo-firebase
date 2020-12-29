@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import fire from "../hoc/Fire";
-import Modaljs from "../UI/Modal";
+import Modaljs from "../UI/SignUpWarningModal";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
+    this.state = {
+      signUpUser: false,
+    };
   }
   state = {
-    user: false,
+    signUpUser: false,
   };
 
   logout() {
@@ -17,16 +20,16 @@ class Home extends Component {
 
   componentDidMount() {
     var currentDate = new Date();
-    var one_hour = 60 * 60 * 1000;
-    var creationTime = Date.parse(localStorage.getItem("creationTime"));
-    if (localStorage.signupConfig && creationTime + one_hour < currentDate) {
-      this.setState({ user: true });
+    var oneHour = 60 * 60 * 1000;
+    var creationTime = Date.parse(localStorage.getItem("userSignUpTime"));
+    if (localStorage.signUpWarning && creationTime + oneHour < currentDate) {
+      this.setState({ signUpUser: true });
     }
   }
 
   render() {
     let modal;
-    if (this.state.user) {
+    if (this.state.signUpUser) {
       modal = <Modaljs />;
     }
     return (
