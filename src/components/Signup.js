@@ -61,7 +61,7 @@ class Signup extends Component {
       .then((u) => {
         MainAuth.isAuth = true;
         sessionStorage.setItem("userSignUpTime", u.user.metadata.creationTime);
-        sessionStorage.setItem("showSignUpWarning", null);
+        sessionStorage.setItem("showSignUpWarning", true);
       })
       .catch((error) => {
         alert(error);
