@@ -1,10 +1,4 @@
 [[redirects]]
-  from = "/signin"
-  to = "/signin"
-  status = 301
-  force = false
-
-[[redirects]]
   from = "/*"
   to = "/error.html"
   status = 404
