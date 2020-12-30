@@ -1,7 +1,8 @@
 [[redirects]]
-  from = "/signin"
+  from = "/"
   to = "/signin"
   status = 301
+  force = false
 
 [[redirects]]
   from = "/*"
