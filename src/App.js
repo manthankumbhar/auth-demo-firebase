@@ -6,7 +6,6 @@ import Main from "./components/Main";
 import Signin from "./components/Signin";
 import Home from "./components/Home";
 import PrivateRoute from "./hoc/PrivateRoute";
-import Error from "./hoc/Error";
 
 class App extends Component {
   render() {
@@ -17,7 +16,6 @@ class App extends Component {
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
           <PrivateRoute path="/home" component={Home} />
-          <Route path="*" component={Error} />
         </Switch>
       </div>
     );
