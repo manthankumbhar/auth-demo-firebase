@@ -8,6 +8,7 @@ class Home extends Component {
     this.logout = this.logout.bind(this);
     this.state = {
       userSignUpinLastOneHour: false,
+      user: null,
     };
   }
 
@@ -25,6 +26,24 @@ class Home extends Component {
     ) {
       this.setState({ userSignUpinLastOneHour: true });
     }
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+        localStorage.setItem("user", user.uid);
+      } else {
+        this.setState({ user: null });
+        localStorage.removeItem("user");
+      }
+    });
+  }
+
+  componentDidUpdate() {
+    localStorage.getItem("user");
   }
 
   render() {

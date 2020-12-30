@@ -24,7 +24,6 @@ class Signin extends Component {
 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
-      console.log(user);
       if (user) {
         this.setState({ user });
         localStorage.setItem("user", user.uid);
@@ -133,10 +132,7 @@ class Signin extends Component {
               style={{ height: "32px" }}
             />
           </div>
-          <button
-            onClick={this.login}
-            className="col-11 btn-in rounded"
-          >
+          <button onClick={this.login} className="col-11 btn-in rounded">
             Continue with email
           </button>
           <br />
