@@ -22,10 +22,7 @@ class Signup extends Component {
   componentDidMount() {
     this.authListener();
   }
-  // [[redirects]]
-  // from = "/*"
-  // to = "/error.html"
-  // status = 404
+
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
