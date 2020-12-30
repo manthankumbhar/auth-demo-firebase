@@ -44,7 +44,7 @@ class Signin extends Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((u) => {
-        return (MainAuth.isAuth = true);
+        MainAuth.isAuth = true;
       })
       .catch((error) => {
         alert(error);
@@ -57,7 +57,7 @@ class Signin extends Component {
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((u) => {
-        return (MainAuth.isAuth = true);
+        MainAuth.isAuth = true;
       })
       .catch((error) => {
         alert(error);
