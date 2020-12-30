@@ -3,6 +3,7 @@
   to = "/error.html"
   status = 404
 
+[[redirects]]
   from = "/signin"
   to = "/signin"
   status = 301
