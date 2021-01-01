@@ -9,9 +9,7 @@ class Main extends Component {
         <Link to="/signin">
           <button className="main_in">SignIn</button>
         </Link>
-        <Link to="/signup">
-          <button className="main_up">SignUp</button>
-        </Link>
+        <Link to="/signup">Signup</Link>
         {localStorage.user ? <Redirect to="/home" /> : null}
       </div>
     );
