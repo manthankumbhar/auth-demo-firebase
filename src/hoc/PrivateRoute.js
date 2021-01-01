@@ -10,8 +10,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     render={(props) =>
       MainAuth.isAuth ? (
         <Component {...props} />
-      ) : localStorage.user ? (
-        localStorage.getItem("user") && <Home />
+      ) : localStorage.userId ? (
+        localStorage.getItem("userId") && <Home />
       ) : (
         <Error />
       )

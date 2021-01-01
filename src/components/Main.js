@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class Main extends Component {
   render() {
@@ -12,6 +12,7 @@ class Main extends Component {
         <Link to="/signup">
           <button className="main_up">SignUp</button>
         </Link>
+        {localStorage.userId ? <Redirect to="/home" /> : null}
       </div>
     );
   }
