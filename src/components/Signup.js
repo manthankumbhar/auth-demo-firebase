@@ -13,7 +13,7 @@ class Signup extends Component {
     this.signInGoogle = this.signInGoogle.bind(this);
     this.authListener = this.authListener.bind(this);
     this.state = {
-      user: null,
+      userId: null,
       email: "",
       password: "",
       userSignUpCheck: false,
@@ -24,13 +24,13 @@ class Signup extends Component {
   }
 
   authListener() {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
-        localStorage.setItem("user", user.uid);
+    fire.auth().onAuthStateChanged((userId) => {
+      if (userId) {
+        this.setState({ userId });
+        localStorage.setItem("userId", userId.uid);
       } else {
-        this.setState({ user: null });
-        localStorage.removeItem("user");
+        this.setState({ userId: null });
+        localStorage.removeItem("userId");
       }
     });
   }
@@ -133,7 +133,7 @@ class Signup extends Component {
             Continue with email
           </button>
         </form>
-        {this.state.user ? <Redirect to="/home" /> : null}
+        {this.state.userId ? <Redirect to="/home" /> : null}
       </div>
     );
   }

@@ -12,7 +12,7 @@ class Main extends Component {
         <Link to="/signup">
           <button className="main_up">SignUp</button>
         </Link>
-        {localStorage.user ? <Redirect to="/home" /> : null}
+        {localStorage.userId ? <Redirect to="/home" /> : null}
       </div>
     );
   }

@@ -15,7 +15,7 @@ class Signin extends Component {
     this.state = {
       email: "",
       password: "",
-      user: null,
+      userId: null,
     };
   }
   componentDidMount() {
@@ -23,13 +23,13 @@ class Signin extends Component {
   }
 
   authListener() {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
-        localStorage.setItem("user", user.uid);
+    fire.auth().onAuthStateChanged((userId) => {
+      if (userId) {
+        this.setState({ userId });
+        localStorage.setItem("userId", userId.uid);
       } else {
-        this.setState({ user: null });
-        localStorage.removeItem("user");
+        this.setState({ userId: null });
+        localStorage.removeItem("userId");
       }
     });
   }
@@ -151,7 +151,7 @@ class Signin extends Component {
           </p>
           <br />
         </form>
-        {this.state.user ? <Redirect to="/home" /> : null}
+        {this.state.userId ? <Redirect to="/home" /> : null}
       </div>
     );
   }

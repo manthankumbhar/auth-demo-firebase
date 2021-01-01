@@ -8,7 +8,7 @@ class Home extends Component {
     this.logout = this.logout.bind(this);
     this.state = {
       userSignUpinLastOneHour: false,
-      user: null,
+      userId: null,
     };
   }
 
@@ -30,20 +30,20 @@ class Home extends Component {
   }
 
   authListener() {
-    fire.auth().onAuthStateChanged((user) => {
-      console.log(user);
-      if (user) {
-        this.setState({ user });
-        localStorage.setItem("user", user.uid);
+    fire.auth().onAuthStateChanged((userId) => {
+      console.log(userId);
+      if (userId) {
+        this.setState({ userId });
+        localStorage.setItem("userId", userId.uid);
       } else {
-        this.setState({ user: null });
-        localStorage.removeItem("user");
+        this.setState({ userId: null });
+        localStorage.removeItem("userId");
       }
     });
   }
 
   componentDidUpdate() {
-    localStorage.getItem("user");
+    localStorage.getItem("userId");
   }
 
   render() {
